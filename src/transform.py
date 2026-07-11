@@ -1,4 +1,4 @@
-from extract import read_transactions_csv
+# from extract import read_transactions_csv
 
 def transform_transaction(transaction: dict[str,str])-> dict[str, str|int|float]:
         
@@ -11,7 +11,7 @@ def transform_transaction(transaction: dict[str,str])-> dict[str, str|int|float]
         "amount": float(transaction["amount"]),
         "currency": transaction["currency"],
         "status": transaction["status"],
-        "channel": transaction["channel"],
+        "channel": transaction["channel"]
 
     }
 
