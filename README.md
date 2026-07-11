@@ -4,7 +4,6 @@ A small Python ETL project that reads banking transaction data from CSV, transfo
 
 ## ETL Flow
 
-```text
 CSV file
   -> extract.py
   -> transform.py
@@ -12,9 +11,6 @@ CSV file
   -> SQLite database
 
 
-然后继续加：
-
-```md
 ## What This Project Demonstrates
 
 - Reading CSV files with Python
@@ -26,7 +22,6 @@ CSV file
 
 ## Project Structure
 
-```text
 banking-transaction-etl/
   data/
     raw/
@@ -59,9 +54,6 @@ python -m ruff check .
 
 
 
-然后可以再加一个小节：
-
-```md
 ## Command Line Options
 
 | Option | Description | Default |
