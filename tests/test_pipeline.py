@@ -1,7 +1,7 @@
 import sqlite3
 
 from src.extract import read_transactions_csv
-from src.transform import transform_transaction, transform_transaction_list
+from src.transform import transform_transaction_list
 from src.load import create_database, insert_transactions
 
 def test_full_pipeline(tmp_path):
