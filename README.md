@@ -48,8 +48,24 @@ banking-transaction-etl/
 ## How To Run
 python .\src\main.py
 
+## Run with custom paths:
+python .\src\main.py --input data/raw/transactions.csv --database data/output/transactions.db --schema sql/create_tables.sql
+
 ## Run Test
 python -m pytest
 
 ## Code Quality
 python -m ruff check .
+
+
+
+然后可以再加一个小节：
+
+```md
+## Command Line Options
+
+| Option | Description | Default |
+| --- | --- | --- |
+| `--input` | Path to the input transactions CSV file | `data/raw/transactions.csv` |
+| `--database` | Path to the output SQLite database | `data/output/transactions.db` |
+| `--schema` | Path to the SQL schema file | `sql/create_tables.sql` |
