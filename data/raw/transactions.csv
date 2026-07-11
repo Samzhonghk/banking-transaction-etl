@@ -1,0 +1,4 @@
+transaction_id,account_id,merchant_id,transaction_time,amount,currency,status,channel
+1001,101,201,2024-02-01 09:15:00,85.40,NZD,approved,card
+1002,101,202,2024-02-01 12:30:00,60.00,NZD,approved,card
+1003,103,203,2024-02-02 18:45:00,240.99,NZD,approved,online
