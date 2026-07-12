@@ -67,7 +67,7 @@ def main()->None:
     # print(f"Inserted {len(transformed_list)} transactions into SQLite.")
     logging.info("Read %s transactions from CSV.", len(transactions))
     logging.info("Transformed %s transactions.", len(transformed_list))
-    logging.info("Read %s transactions from CSV", len(transactions))
+    logging.info("Validated %s transactions.", len(valid_transactions))
     logging.info("Inserted %s transactions into SQLite", len(transformed_list))
 
 if __name__ == "__main__":
