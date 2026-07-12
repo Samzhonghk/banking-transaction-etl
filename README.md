@@ -7,6 +7,7 @@ A small Python ETL project that reads banking transaction data from CSV, transfo
 CSV file
   -> extract.py
   -> transform.py
+  -> validate.py
   -> load.py
   -> SQLite database
 
@@ -19,6 +20,10 @@ CSV file
 - Separating ETL logic into extract, transform, and load modules
 - Writing unit tests and full pipeline tests with pytest
 - Running code quality checks with Ruff
+
+- Validating transaction data before loading
+- Rejecting invalid records such as negative transaction amounts
+- Logging ETL progress and validation results
 
 ## Project Structure
 
@@ -61,3 +66,17 @@ python -m ruff check .
 | `--input` | Path to the input transactions CSV file | `data/raw/transactions.csv` |
 | `--database` | Path to the output SQLite database | `data/output/transactions.db` |
 | `--schema` | Path to the SQL schema file | `sql/create_tables.sql` |
+
+
+## Data Validation
+
+The pipeline validates transformed transactions before loading them into SQLite.
+
+Current validation rules:
+
+- `amount` must not be negative
+- `status` must be one of `approved`, `failed`, or `flagged`
+
+Invalid records are excluded from loading, and the number of rejected records is logged during the ETL run.
+
+
