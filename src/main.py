@@ -3,7 +3,9 @@ import logging
 from extract import read_transactions_csv
 from transform import transform_transaction_list
 from load import create_database, insert_transactions
-from validate import validate_transactions
+# from validate import validate_transactions
+from rejected import write_rejected_transactions
+from validate import split_valid_invalid_transactions
 
 
 logging.basicConfig(
@@ -35,6 +37,12 @@ def parse_args():
         help="Path to the SQL schema file."
     )
 
+    parse.add_argument(
+        "--rejected_output",
+        default="data/output/rejected_transactions.csv",
+        help="Path to the rejected transactions csv file."
+    )
+
     return parse.parse_args()
 
 def main()->None:
@@ -48,9 +56,9 @@ def main()->None:
 
         transformed_list = transform_transaction_list(transactions)
 
-        valid_transactions = validate_transactions(transformed_list)
+        valid_transactions, invalid_transactions = split_valid_invalid_transactions(transformed_list)
 
-        invalid_count = len(transformed_list) - len(valid_transactions)
+        invalid_count = len(invalid_transactions)
 
 
 
@@ -60,6 +68,7 @@ def main()->None:
         )
 
         insert_transactions(args.database, valid_transactions)
+        write_rejected_transactions(args.rejected_output, invalid_transactions)
         print("Transactions inserted successfully.")
 
     except FileNotFoundError as error:
@@ -72,6 +81,7 @@ def main()->None:
     logging.info("Transformed %s transactions.", len(transformed_list))
     logging.info("Validated %s transactions.", len(valid_transactions))
     logging.info("Rejected %s invalid transactions", invalid_count)
+    logging.info("wrote rejected transactions to %s.", args.rejected_output)
     logging.info("Inserted %s transactions into SQLite", len(transformed_list))
 
 

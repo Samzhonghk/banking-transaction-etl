@@ -21,3 +21,20 @@ def validate_transactions(
         if validate_transaction(t):
             valid_transactions.append(t)
     return valid_transactions
+
+def split_valid_invalid_transactions(
+        ts: list[dict[str, str|int|float]]
+)->tuple[
+    list[dict[str, str|int|float]],
+    list[dict[str, str|int|float]]
+]:
+    valid_transations = []
+    invalid_transactions = []
+
+    for t in ts:
+        if validate_transaction(t):
+            valid_transations.append(t)
+        else:
+            invalid_transactions.append(t)
+
+    return valid_transations, invalid_transactions
