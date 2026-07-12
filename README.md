@@ -80,3 +80,24 @@ Current validation rules:
 Invalid records are excluded from loading, and the number of rejected records is logged during the ETL run.
 
 
+## Run Logging / Observability
+
+Each ETL run writes a record into the `etl_run_logs` table.
+
+The log captures:
+
+- input CSV file path
+- output SQLite database path
+- number of records read
+- number of records transformed
+- number of valid records
+- number of rejected records
+- number of inserted records
+- run timestamp
+
+Example query:
+
+```sql
+SELECT *
+FROM etl_run_logs
+ORDER BY run_id DESC;
