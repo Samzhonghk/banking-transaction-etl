@@ -1,7 +1,14 @@
+import argparse
+import logging
 from extract import read_transactions_csv
 from transform import transform_transaction_list
 from load import create_database, insert_transactions
-import argparse
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s: %(message)s",
+)
 
 def parse_args():
     parse = argparse.ArgumentParser(
@@ -47,8 +54,10 @@ def main()->None:
     insert_transactions(args.database, transformed_list)
     print("Transactions inserted successfully.")
 
-    print(f"Read {len(transactions)} transactions from CSV.")
-    print(f"Inserted {len(transformed_list)} transactions into SQLite.")
+    # print(f"Read {len(transactions)} transactions from CSV.")
+    # print(f"Inserted {len(transformed_list)} transactions into SQLite.")
+    logging.info("Read %s transactions from CSV", len(transactions))
+    logging.info("Inserted %s transactions into SQLite", len(transformed_list))
 
 if __name__ == "__main__":
     main()
