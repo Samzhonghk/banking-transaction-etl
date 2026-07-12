@@ -2,7 +2,7 @@ import argparse
 import logging
 from extract import read_transactions_csv
 from transform import transform_transaction_list
-from load import create_database, insert_transactions
+from load import create_database, insert_transactions, insert_etl_run_log
 # from validate import validate_transactions
 from rejected import write_rejected_transactions
 from validate import split_valid_invalid_transactions
@@ -68,6 +68,17 @@ def main()->None:
         )
 
         insert_transactions(args.database, valid_transactions)
+        insert_etl_run_log(
+            args.database,
+            args.input,
+            args.database,
+            len(transactions),
+            len(transformed_list),
+            len(valid_transactions),
+            len(invalid_transactions),
+            len(valid_transactions)
+
+        )
         write_rejected_transactions(args.rejected_output, invalid_transactions)
         print("Transactions inserted successfully.")
 

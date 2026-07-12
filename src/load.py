@@ -50,3 +50,49 @@ def insert_transactions(
 
     finally:
         connection.close()
+
+
+def insert_etl_run_log(
+        db_path: str, 
+        input_file: str,
+        database_file: str,
+        total_read: int,
+        total_transformed: int,
+        total_valid: int,
+        total_rejected: int,
+        total_inserted: int,
+)-> None:
+    connection = sqlite3.connect(db_path)
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            """
+            INSERT INTO etl_run_logs (
+                run_time,
+                input_file,
+                database_file,
+                total_read,
+                total_transformed,
+                total_valid,
+                total_rejected,
+                total_inserted
+            )
+            VALUES (
+                datetime('now'),
+                ?, ?, ?, ?, ?, ?, ?
+            )
+            """,
+            (
+                input_file,
+                database_file,
+                total_read,
+                total_transformed,
+                total_valid,
+                total_rejected,
+                total_inserted,
+            ),
+        )
+        connection.commit()
+    finally:
+        connection.close()
