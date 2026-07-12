@@ -40,19 +40,25 @@ def main()->None:
 
     args = parse_args()
 
-
-    transactions = read_transactions_csv(args.input)
-
-    transformed_list = transform_transaction_list(transactions)
+    try:
 
 
-    create_database(
-        args.database,
-        args.schema,
-    )
+        transactions = read_transactions_csv(args.input)
 
-    insert_transactions(args.database, transformed_list)
-    print("Transactions inserted successfully.")
+        transformed_list = transform_transaction_list(transactions)
+
+
+        create_database(
+            args.database,
+            args.schema,
+        )
+
+        insert_transactions(args.database, transformed_list)
+        print("Transactions inserted successfully.")
+
+    except FileNotFoundError as error:
+        logging.error("File not found: %s", error.filename)
+        raise SystemExit(1) from error
 
     # print(f"Read {len(transactions)} transactions from CSV.")
     # print(f"Inserted {len(transformed_list)} transactions into SQLite.")
