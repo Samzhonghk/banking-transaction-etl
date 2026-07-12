@@ -50,6 +50,9 @@ def main()->None:
 
         valid_transactions = validate_transactions(transformed_list)
 
+        invalid_count = len(transformed_list) - len(valid_transactions)
+
+
 
         create_database(
             args.database,
@@ -68,7 +71,9 @@ def main()->None:
     logging.info("Read %s transactions from CSV.", len(transactions))
     logging.info("Transformed %s transactions.", len(transformed_list))
     logging.info("Validated %s transactions.", len(valid_transactions))
+    logging.info("Rejected %s invalid transactions", invalid_count)
     logging.info("Inserted %s transactions into SQLite", len(transformed_list))
+
 
 if __name__ == "__main__":
     main()
