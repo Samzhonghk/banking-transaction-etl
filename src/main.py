@@ -3,6 +3,7 @@ import logging
 from extract import read_transactions_csv
 from transform import transform_transaction_list
 from load import create_database, insert_transactions
+from validate import validate_transactions
 
 
 logging.basicConfig(
@@ -47,13 +48,15 @@ def main()->None:
 
         transformed_list = transform_transaction_list(transactions)
 
+        valid_transactions = validate_transactions(transformed_list)
+
 
         create_database(
             args.database,
             args.schema,
         )
 
-        insert_transactions(args.database, transformed_list)
+        insert_transactions(args.database, valid_transactions)
         print("Transactions inserted successfully.")
 
     except FileNotFoundError as error:
@@ -62,6 +65,8 @@ def main()->None:
 
     # print(f"Read {len(transactions)} transactions from CSV.")
     # print(f"Inserted {len(transformed_list)} transactions into SQLite.")
+    logging.info("Read %s transactions from CSV.", len(transactions))
+    logging.info("Transformed %s transactions.", len(transformed_list))
     logging.info("Read %s transactions from CSV", len(transactions))
     logging.info("Inserted %s transactions into SQLite", len(transformed_list))
 
