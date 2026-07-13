@@ -5,7 +5,7 @@ from transform import transform_transaction_list
 from load import create_database, insert_transactions, insert_etl_run_log
 # from validate import validate_transactions
 from rejected import write_rejected_transactions
-from validate import split_valid_invalid_transactions
+from validate import split_valid_invalid_transactions, load_validation_rules
 
 
 logging.basicConfig(
@@ -43,6 +43,12 @@ def parse_args():
         help="Path to the rejected transactions csv file."
     )
 
+    parse.add_argument(
+        "--rules",
+        default="config/validations_rules.json",
+        help="Path to the validation rules file"
+    )
+
     return parse.parse_args()
 
 def main()->None:
@@ -53,10 +59,11 @@ def main()->None:
 
 
         transactions = read_transactions_csv(args.input)
+        rules = load_validation_rules(args.rules)
 
         transformed_list = transform_transaction_list(transactions)
 
-        valid_transactions, invalid_transactions = split_valid_invalid_transactions(transformed_list)
+        valid_transactions, invalid_transactions = split_valid_invalid_transactions(transformed_list,rules)
 
         invalid_count = len(invalid_transactions)
 
