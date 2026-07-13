@@ -25,6 +25,18 @@ CSV file
 - Rejecting invalid records such as negative transaction amounts
 - Logging ETL progress and validation results
 
+## Project Highlights / What I Practiced
+
+- Built a Python ETL pipeline using an extract-transform-load structure.
+- Loaded raw banking transaction data from CSV into SQLite.
+- Converted CSV string values into typed Python records.
+- Added validation rules from a JSON config file.
+- Excluded invalid records from the database load.
+- Wrote rejected records to a separate CSV file for review.
+- Logged each ETL run into a SQLite `etl_run_logs` table.
+- Added unit tests and a full pipeline test with pytest.
+- Used Ruff to check code quality.
+
 ## Project Structure
 
 banking-transaction-etl/
@@ -101,16 +113,20 @@ Example query:
 SELECT *
 FROM etl_run_logs
 ORDER BY run_id DESC;
+```
 
 
 ## Configurable Validation Rules
 
 Validation rules are stored in:
 
-config/validation_rules.json
+`config/validation_rules.json`
 
 Example:
+
+```json
 {
   "allowed_statuses": ["approved", "failed", "flagged"],
   "min_amount": 0
 }
+```

@@ -1,7 +1,0 @@
-{
-    "allowed_statuses":[
-        "approved", "failed", "flagged"
-        
-    ],
-    "min_amount": 0
-}

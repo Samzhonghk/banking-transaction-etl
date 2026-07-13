@@ -1,4 +1,5 @@
 *.db
 __pycache__/
 tmp_path/
+.pytest_tmp/
 .pytest_cache/
