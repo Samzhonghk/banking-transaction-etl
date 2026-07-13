@@ -45,7 +45,7 @@ def parse_args():
 
     parse.add_argument(
         "--rules",
-        default="config/validations_rules.json",
+        default="config/validation_rules.json",
         help="Path to the validation rules file"
     )
 
