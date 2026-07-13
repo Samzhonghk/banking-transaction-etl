@@ -101,3 +101,16 @@ Example query:
 SELECT *
 FROM etl_run_logs
 ORDER BY run_id DESC;
+
+
+## Configurable Validation Rules
+
+Validation rules are stored in:
+
+config/validation_rules.json
+
+Example:
+{
+  "allowed_statuses": ["approved", "failed", "flagged"],
+  "min_amount": 0
+}
